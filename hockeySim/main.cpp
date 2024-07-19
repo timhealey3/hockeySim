@@ -15,7 +15,7 @@ int main() {
 	Player cutPlayer = team.cutPlayer();
 	freeAgents.push_back(cutPlayer);
 		// sign free agents
-	gamelogic.playGame(team, team);
+	gamelogic.gamePlay(team, team);
 		// draft players
 		// re sign players
 		// trade players
