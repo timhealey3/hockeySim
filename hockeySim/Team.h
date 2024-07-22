@@ -4,6 +4,7 @@
 #include "Player.h"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 class Team
 {
 private:
@@ -18,6 +19,9 @@ private:
 	int nextYearBudget;
 	std::string name;
 	std::vector<Player> team;
+	std::vector<Player> LineOne;
+	std::vector<Player> LineTwo;
+	std::vector<Player> LineThree;
 public:
 	Team();
 	~Team();
@@ -25,5 +29,7 @@ public:
 	void generatePlayers();
 	void viewPlayers();
 	Player cutPlayer();
+	bool compareByRating(Player& p1, Player& p2);
+	void autoGenLines();
 };
 

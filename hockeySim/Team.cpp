@@ -23,8 +23,18 @@ std::string Team::getName()
 
 void Team::generatePlayers()
 {
-	for (int i = 0; i < 10; i++) {
-		Player player("Jimmy", "Howard", Player::PositionPossible::offense);
+	for (int i = 0; i < 3; i++) {
+		Player player("Jimmy", "Howard", Player::PositionPossible::center);
+		// name, position
+		team.push_back(player);
+	}
+	for (int i = 0; i < 3; i++) {
+		Player player("Jimmy", "Howard", Player::PositionPossible::left);
+		// name, position
+		team.push_back(player);
+	}
+	for (int i = 0; i < 3; i++) {
+		Player player("Jimmy", "Howard", Player::PositionPossible::right);
 		// name, position
 		team.push_back(player);
 	}
@@ -55,3 +65,14 @@ Player Team::cutPlayer()
 	return cutPlayer;
 }
 
+bool compareByRating(Player& p1, Player& p2) {
+	return p1.getOverallRating() < p2.getOverallRating();
+}
+
+void Team::autoGenLines()
+{
+	std::sort(team.begin(), team.end(), compareByRating);
+	for (auto& player : team) {
+		std::cout << player.getOverallRating() << ": " << player.getOverallRating() << std::endl;
+	}
+}

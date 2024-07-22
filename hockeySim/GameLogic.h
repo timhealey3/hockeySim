@@ -9,6 +9,11 @@ private:
 	uint8_t cpuTeamScore;
 public:
 	GameLogic();
-	bool gamePlay(Team UserTeam, Team CpuTeam);
+	bool gamePlay(Team* UserTeam, Team* CpuTeam);
+	bool faceOff(Team* UserTeam, Team* CpuTeam);
+	bool shotOnNet();
+	void firstPeriod(Team* UserTeam, Team* CpuTeam);
+	void secondPeriod(Team* UserTeam, Team* CpuTeam);
+	void thirdPeriod(Team* UserTeam, Team* CpuTeam);
 };
 

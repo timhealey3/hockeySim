@@ -4,7 +4,7 @@
 class Player
 {
 public:
-	enum class PositionPossible { offense, defense, goalie };
+	enum class PositionPossible { center, left, right, defense, goalie };
 private:
 	PositionPossible position;
 	Stat stat;
@@ -12,6 +12,7 @@ private:
 	int passingRating;
 	int checkingRating;
 	int goalieRating;
+	int faceOffRating;
 	int overallRating;
 	int potientalRating;
 	int age;
@@ -21,9 +22,12 @@ private:
 	std::string lastName;
 public:
 	Player(std::string first, std::string last, PositionPossible positionNew);
+	~Player();
 	std::string getName();
 	PositionPossible getPosition();
 	std::string getDisplayPosition();
 	void cutContract();
+	int getFaceOffSkill();
+	int getOverallRating();
 };
 

@@ -7,6 +7,10 @@ Player::Player(std::string first, std::string last, PositionPossible positionNew
     contractLength = 1;
 }
 
+Player::~Player()
+{
+}
+
 
 std::string Player::getName()
 {
@@ -23,8 +27,12 @@ std::string Player::getDisplayPosition()
 {
     switch (position)
     {
-    case Player::PositionPossible::offense:
-        return "Offense";
+    case Player::PositionPossible::center:
+        return "Offense - Center";
+    case Player::PositionPossible::left:
+        return "Offense - Left";
+    case Player::PositionPossible::right:
+        return "Offense - Right";
     case Player::PositionPossible::defense:
         return "Defense";
     case Player::PositionPossible::goalie:
@@ -38,4 +46,14 @@ void Player::cutContract()
 {
     contractCost = 0;
     contractLength = 0;
+}
+
+int Player::getFaceOffSkill()
+{
+    return faceOffRating;
+}
+
+int Player::getOverallRating()
+{
+    return overallRating;
 }
