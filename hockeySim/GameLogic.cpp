@@ -24,6 +24,7 @@ bool GameLogic::faceOff(Team* UserTeam, Team* CpuTeam)
 
 void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 {
+	UserTeam->autoGenLines();
 	for (int i = 20; i > 0; i--) {
 		// change shifts every 2 minutes
 		if (i % 2 == 0) {

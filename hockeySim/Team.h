@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <set>
 class Team
 {
 private:
@@ -19,9 +20,9 @@ private:
 	int nextYearBudget;
 	std::string name;
 	std::vector<Player> team;
-	std::vector<Player> LineOne;
-	std::vector<Player> LineTwo;
-	std::vector<Player> LineThree;
+	std::set<Player> LineOne;
+	std::set<Player> LineTwo;
+	std::set<Player> LineThree;
 public:
 	Team();
 	~Team();

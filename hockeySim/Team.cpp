@@ -24,26 +24,26 @@ std::string Team::getName()
 void Team::generatePlayers()
 {
 	for (int i = 0; i < 3; i++) {
-		Player player("Jimmy", "Howard", Player::PositionPossible::center);
+		Player player("Pavel", "Datsyuk", Player::PositionPossible::center, Player::Potiental::high);
 		// name, position
 		team.push_back(player);
 	}
 	for (int i = 0; i < 3; i++) {
-		Player player("Jimmy", "Howard", Player::PositionPossible::left);
+		Player player("Henrik", "Zetter", Player::PositionPossible::left, Player::Potiental::high);
 		// name, position
 		team.push_back(player);
 	}
 	for (int i = 0; i < 3; i++) {
-		Player player("Jimmy", "Howard", Player::PositionPossible::right);
+		Player player("Johan", "Franzen", Player::PositionPossible::right, Player::Potiental::high);
 		// name, position
 		team.push_back(player);
 	}
 	for (int i = 0; i < 10; i++) {
-		Player player("Jimmy", "Howard", Player::PositionPossible::defense);
+		Player player("Nicolas", "Lidstrom", Player::PositionPossible::defense, Player::Potiental::high);
 		team.push_back(player);
 	}
 	for (int i = 0; i < 3; i++) {
-		Player player("Jimmy", "Howard", Player::PositionPossible::goalie);
+		Player player("Jimmy", "Howard", Player::PositionPossible::goalie, Player::Potiental::high);
 		team.push_back(player);
 	}
 }
@@ -65,14 +65,20 @@ Player Team::cutPlayer()
 	return cutPlayer;
 }
 
-bool compareByRating(Player& p1, Player& p2) {
+bool Team::compareByRating(Player& p1, Player& p2)
+{
 	return p1.getOverallRating() < p2.getOverallRating();
 }
 
 void Team::autoGenLines()
 {
-	std::sort(team.begin(), team.end(), compareByRating);
+
+	std::sort(team.begin(), team.end(), [](Player& p1, Player& p2) {
+		return p1.getOverallRating() > p2.getOverallRating();
+		});
+	
 	for (auto& player : team) {
-		std::cout << player.getOverallRating() << ": " << player.getOverallRating() << std::endl;
+		std::cout << player.getName() << ": " << player.getOverallRating() << std::endl;
+		// add highest rating players to line one
 	}
 }
