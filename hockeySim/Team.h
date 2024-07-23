@@ -18,11 +18,17 @@ private:
 	int budget;
 	int budgetAllocated;
 	int nextYearBudget;
+	int currentLine;
 	std::string name;
 	std::vector<Player> team;
-	std::set<Player> LineOne;
-	std::set<Player> LineTwo;
-	std::set<Player> LineThree;
+	std::vector<Player> LineOne;
+	std::vector<Player> LineTwo;
+	std::vector<Player> LineThree;
+	std::vector<Player> centerVector;
+	std::vector<Player> leftVector;
+	std::vector<Player> rightVector;
+	std::vector<Player> defenseVector;
+	std::vector<Player> goalieVector;
 public:
 	Team();
 	~Team();
@@ -32,5 +38,9 @@ public:
 	Player cutPlayer();
 	bool compareByRating(Player& p1, Player& p2);
 	void autoGenLines();
+	void setCurrentLine(int newLine);
+	int getCurrentLine();
+	void shiftChange();
+	Player CurrentLineCenter();
 };
 

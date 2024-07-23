@@ -16,9 +16,7 @@ bool GameLogic::gamePlay(Team* UserTeam, Team* CpuTeam)
 
 bool GameLogic::faceOff(Team* UserTeam, Team* CpuTeam)
 {
-	// if (UserTeam.Center.getFaceoffSkill() => cpu) return true
-	//bool result = UserTeam->Center->getFaceoffSkill() >= CpuTeam->Center->getFaceoffSkill();
-	bool result = false;
+	bool result = UserTeam->CurrentLineCenter().getFaceOffSkill() >= CpuTeam->CurrentLineCenter().getFaceOffSkill();
 	return result;
 }
 
@@ -30,13 +28,13 @@ void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 		if (i % 2 == 0) {
 			if (i == 20) {
 				std::cout << "Starting First Period" << "\n";
-				// userTeam.startingTeam
-				// cpuTeam.startingTeam
-				faceOff(UserTeam, CpuTeam);
+				UserTeam->setCurrentLine(1);
+				CpuTeam->setCurrentLine(1);
+				bool faceOffResult = faceOff(UserTeam, CpuTeam);
 			}
 			else {
-				// userTeam.shiftChange
-				// cpuTeam.shiftChange
+				UserTeam->shiftChange();
+				CpuTeam->shiftChange();
 			}
 		}
 

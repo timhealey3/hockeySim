@@ -38,7 +38,7 @@ void Team::generatePlayers()
 		// name, position
 		team.push_back(player);
 	}
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 6; i++) {
 		Player player("Nicolas", "Lidstrom", Player::PositionPossible::defense, Player::Potiental::high);
 		team.push_back(player);
 	}
@@ -72,13 +72,66 @@ bool Team::compareByRating(Player& p1, Player& p2)
 
 void Team::autoGenLines()
 {
-
-	std::sort(team.begin(), team.end(), [](Player& p1, Player& p2) {
-		return p1.getOverallRating() > p2.getOverallRating();
-		});
 	
 	for (auto& player : team) {
 		std::cout << player.getName() << ": " << player.getOverallRating() << std::endl;
-		// add highest rating players to line one
+		if (player.getPosition() == Player::PositionPossible::center) {
+			centerVector.push_back(player);
+		}
+		else if (player.getPosition() == Player::PositionPossible::left) {
+			leftVector.push_back(player);
+		}
+		else if (player.getPosition() == Player::PositionPossible::right) {
+			rightVector.push_back(player);
+		}
+		else if (player.getPosition() == Player::PositionPossible::defense) {
+			defenseVector.push_back(player);
+		}
+		else  {
+			goalieVector.push_back(player);
+		}
 	}
+
+	// sort them
+	std::sort(centerVector.begin(), centerVector.end(), [](Player& p1, Player& p2) {
+		return p1.getOverallRating() > p2.getOverallRating();
+		});
+	std::sort(leftVector.begin(), leftVector.end(), [](Player& p1, Player& p2) {
+		return p1.getOverallRating() > p2.getOverallRating();
+		});
+	std::sort(rightVector.begin(), rightVector.end(), [](Player& p1, Player& p2) {
+		return p1.getOverallRating() > p2.getOverallRating();
+		});
+	std::sort(defenseVector.begin(), defenseVector.end(), [](Player& p1, Player& p2) {
+		return p1.getOverallRating() > p2.getOverallRating();
+		});
+	std::sort(goalieVector.begin(), goalieVector.end(), [](Player& p1, Player& p2) {
+		return p1.getOverallRating() > p2.getOverallRating();
+		});
+
+	// put sorted vectors in lines
+	
+}
+
+void Team::setCurrentLine(int newLine)
+{
+	currentLine = newLine;
+}
+
+int Team::getCurrentLine()
+{
+	return currentLine;
+}
+
+void Team::shiftChange()
+{
+	if (currentLine++ <= 3) {
+		currentLine++;
+	}
+	else { currentLine = 1; }
+}
+
+Player Team::CurrentLineCenter()
+{
+	return centerVector[currentLine];
 }

@@ -7,6 +7,7 @@ private:
 	uint8_t minute;
 	uint8_t userTeamScore;
 	uint8_t cpuTeamScore;
+	Team puckControl;
 public:
 	GameLogic();
 	bool gamePlay(Team* UserTeam, Team* CpuTeam);
