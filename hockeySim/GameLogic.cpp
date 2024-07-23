@@ -20,6 +20,11 @@ bool GameLogic::faceOff(Team* UserTeam, Team* CpuTeam)
 	return result;
 }
 
+bool GameLogic::shotOnNet()
+{
+	return false;
+}
+
 void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 {
 	UserTeam->autoGenLines();
@@ -28,9 +33,12 @@ void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 		if (i % 2 == 0) {
 			if (i == 20) {
 				std::cout << "Starting First Period" << "\n";
+				icearea = IceArea::midIce;
 				UserTeam->setCurrentLine(1);
 				CpuTeam->setCurrentLine(1);
 				bool faceOffResult = faceOff(UserTeam, CpuTeam);
+				puckControl = faceOffResult ? UserTeam : CpuTeam;
+				moveArea(UserTeam, CpuTeam);
 			}
 			else {
 				UserTeam->shiftChange();
@@ -47,5 +55,24 @@ void GameLogic::secondPeriod(Team* UserTeam, Team* CpuTeam)
 
 void GameLogic::thirdPeriod(Team* UserTeam, Team* CpuTeam)
 {
+}
+
+void GameLogic::moveArea(Team* UserTeam, Team* CpuTeam)
+{
+	// if puck in opposite end and have control then take a shot
+	if (puckControl) {
+		// move puck
+		if (icearea < IceArea::awayEnd) {
+			icearea = static_cast<IceArea>(static_cast<int>(icearea) + 1);
+		}
+		else { shotOnNet(); }
+	}
+	else  {
+		// move puck
+		if (icearea > IceArea::homeEnd) {
+			icearea = static_cast<IceArea>(static_cast<int>(icearea) - 1);
+		}
+		else { shotOnNet(); }
+	}
 }
 
