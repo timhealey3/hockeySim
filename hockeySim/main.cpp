@@ -4,7 +4,7 @@ int main() {
 	Team team;
 	GameLogic gamelogic;
 	bool gameRunning = true;
-	std::vector<Player> freeAgents;
+	std::vector<Player*> freeAgents;
 	//while (gameRunning) {
 	// generate teams
 	team.generatePlayers();
@@ -12,7 +12,7 @@ int main() {
 	// view teams
 	//team.viewPlayers();
 		// cut players
-	Player cutPlayer = team.cutPlayer();
+	Player* cutPlayer = team.cutPlayer();
 	freeAgents.push_back(cutPlayer);
 		// sign free agents
 			// draft players

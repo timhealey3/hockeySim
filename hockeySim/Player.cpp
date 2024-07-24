@@ -129,6 +129,16 @@ int Player::getFaceOffSkill()
     return faceOffRating;
 }
 
+int Player::getShootingSkill()
+{
+    return shootingRating;
+}
+
+int Player::getGoalieSkill()
+{
+    return goalieRating;
+}
+
 int Player::getOverallRating() const
 {
     return overallRating;

@@ -11,11 +11,12 @@ private:
 	uint8_t cpuTeamScore;
 	Team* puckControl;
 	IceArea icearea;
+	Stat gameStat;
 public:
 	GameLogic();
 	bool gamePlay(Team* UserTeam, Team* CpuTeam);
 	bool faceOff(Team* UserTeam, Team* CpuTeam);
-	bool shotOnNet();
+	bool shotOnNet(Team* ShootingTeam, Team* DefendingTeam);
 	void firstPeriod(Team* UserTeam, Team* CpuTeam);
 	void secondPeriod(Team* UserTeam, Team* CpuTeam);
 	void thirdPeriod(Team* UserTeam, Team* CpuTeam);

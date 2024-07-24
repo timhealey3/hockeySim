@@ -34,6 +34,8 @@ public:
 	void genPotientalRating();
 	void genCurrentRating();
 	int getFaceOffSkill();
+	int getShootingSkill();
+	int getGoalieSkill();
 	int getOverallRating() const;
 };
 
