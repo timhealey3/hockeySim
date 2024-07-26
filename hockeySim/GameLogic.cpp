@@ -2,17 +2,43 @@
 
 GameLogic::GameLogic()
 {
+	userTeamScore = 0;
+	cpuTeamScore = 0;
+	minute = 0;
+	period = 0;
+}
+
+GameLogic::~GameLogic()
+{
 }
 
 bool GameLogic::gamePlay(Team* UserTeam, Team* CpuTeam)
 {
+	Stat gameStat;
 	firstPeriod(UserTeam, CpuTeam);
 	secondPeriod(UserTeam, CpuTeam);
 	thirdPeriod(UserTeam, CpuTeam);
-	Stat gameStat;
-	// return true if user team wins
-	// return false if cpu team wins
-	return true;
+	if (userTeamScore == cpuTeamScore) { 
+		overtimeLogic(UserTeam, CpuTeam);
+	}
+	int result = endGameLogic(UserTeam, CpuTeam);
+	std::cout << "MSG::SCORE: Home " << static_cast<int>(userTeamScore) << " Away: " << static_cast<int>(cpuTeamScore) << std::endl;
+	
+	// end of game result
+	switch (result) {
+	case (0): {
+			return true;
+		}
+	case (1): {
+		return false;
+	}
+	case (2): {
+		return false;
+	}
+	default: {
+		return false;
+	}
+	}
 }
 
 bool GameLogic::faceOff(Team* UserTeam, Team* CpuTeam)
@@ -29,11 +55,14 @@ bool GameLogic::shotOnNet(Team* ShootingTeam, Team* DefendingTeam)
 	std::cout << "shot on net" << "\n";
 	int shotRating = ShootingTeam->CurrentLineCenter()->getShootingSkill();
 	int defendingRating = DefendingTeam->CurrentLineGoalie()->getGoalieSkill();
-	return false;
+	std::cout << "END::shot on net" << "\n\n";
+	bool result = true;
+	return result;
 }
 
 void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 {
+	period = 1;
 	UserTeam->autoGenLines();
 	for (int i = 20; i > 0; i--) {
 		// change shifts every 2 minutes
@@ -53,16 +82,46 @@ void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 			}
 		}
 		moveArea(UserTeam, CpuTeam);
+		std::cout << "AREA::Puck has moved to " << getIceAreaString(icearea) << "\n";
 	}
 }
 
 void GameLogic::secondPeriod(Team* UserTeam, Team* CpuTeam)
 {
+	std::cout << "Start Second Period" << "\n";
+	period = 2;
 }
 
 void GameLogic::thirdPeriod(Team* UserTeam, Team* CpuTeam)
 {
+	std::cout << "Start Third Period" << "\n";
+	period = 3;
 }
+
+int GameLogic::endGameLogic(Team* UserTeam, Team* CpuTeam)
+{
+
+	// win game
+	if (userTeamScore > cpuTeamScore){
+		return 0;
+	}
+	// lose game
+	else if (userTeamScore < cpuTeamScore) {
+		return 1;
+	}
+	// time game
+	else {
+		return 2;
+	}
+}
+
+int GameLogic::overtimeLogic(Team* UserTeam, Team* CpuTeam)
+{
+	period = 4;
+	return 0;
+}
+
+
 
 void GameLogic::moveArea(Team* UserTeam, Team* CpuTeam)
 {
@@ -80,6 +139,16 @@ void GameLogic::moveArea(Team* UserTeam, Team* CpuTeam)
 			icearea = static_cast<IceArea>(static_cast<int>(icearea) - 1);
 		}
 		else { shotOnNet(CpuTeam, UserTeam); }
+	}
+}
+
+std::string GameLogic::getIceAreaString(IceArea area)
+{
+	switch (area) {
+	case IceArea::midIce:         return "Mid Ice";
+	case IceArea::homeEnd:  return "Offensive Zone";
+	case IceArea::awayEnd:  return "Defensive Zone";
+	default:                      return "Unknown Area";
 	}
 }
 

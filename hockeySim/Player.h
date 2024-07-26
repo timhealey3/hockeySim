@@ -3,6 +3,7 @@
 #include "Stat.h"
 #include <random>
 #include <ctime>
+#include <cstdlib>
 class Player
 {
 public:

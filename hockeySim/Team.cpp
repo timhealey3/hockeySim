@@ -19,10 +19,6 @@ Team::~Team()
 	}
 	team.clear();
 
-	for (auto& player : team) {
-		delete player;
-	}
-	team.clear();
 }
 
 std::string Team::getName()
@@ -30,29 +26,37 @@ std::string Team::getName()
 	return name;
 }
 
-void Team::generatePlayers()
+void Team::generatePlayers(GenerateName genName)
 {
 	for (int i = 0; i < 3; i++) {
-		Player* player = new Player("Pavel", "Datsyuk", Player::PositionPossible::center, Player::Potiental::high);
-		// name, position
+		// generate random name
+		std::string firstName = genName.generateFirstName();
+		std::string lastName = genName.generateLastName();
+		Player* player = new Player(firstName, lastName, Player::PositionPossible::center, Player::Potiental::high);
 		team.push_back(player);
 	}
 	for (int i = 0; i < 3; i++) {
-		Player* player = new Player("Henrik", "Zetter", Player::PositionPossible::left, Player::Potiental::high);
-		// name, position
+		std::string firstName = genName.generateFirstName();
+		std::string lastName = genName.generateLastName();
+		Player* player = new Player(firstName, lastName, Player::PositionPossible::left, Player::Potiental::high);
 		team.push_back(player);
 	}
 	for (int i = 0; i < 3; i++) {
-		Player* player = new Player("Johan", "Franzen", Player::PositionPossible::right, Player::Potiental::high);
-		// name, position
+		std::string firstName = genName.generateFirstName();
+		std::string lastName = genName.generateLastName();
+		Player* player = new Player(firstName, lastName, Player::PositionPossible::right, Player::Potiental::high);
 		team.push_back(player);
 	}
 	for (int i = 0; i < 6; i++) {
-		Player* player = new Player("Nicolas", "Lidstrom", Player::PositionPossible::defense, Player::Potiental::high);
+		std::string firstName = genName.generateFirstName();
+		std::string lastName = genName.generateLastName();
+		Player* player = new Player(firstName, lastName, Player::PositionPossible::defense, Player::Potiental::high);
 		team.push_back(player);
 	}
 	for (int i = 0; i < 3; i++) {
-		Player* player = new Player("Jimmy", "Howard", Player::PositionPossible::goalie, Player::Potiental::high);
+		std::string firstName = genName.generateFirstName();
+		std::string lastName = genName.generateLastName();
+		Player* player = new Player(firstName, lastName, Player::PositionPossible::goalie, Player::Potiental::high);
 		team.push_back(player);
 	}
 }
@@ -60,7 +64,7 @@ void Team::generatePlayers()
 void Team::viewPlayers()
 {
 	for (int i = 0; i < team.size(); i++) {
-		std::cout << team[i]->getName() << " " << team[i]->getDisplayPosition() << "\n";
+		std::cout << team[i]->getName() << " " << team[i]->getDisplayPosition() << " - " << team[i]->getOverallRating() << "\n";
 	}
 }
 
@@ -83,7 +87,6 @@ void Team::autoGenLines()
 {
 	
 	for (auto& player : team) {
-		std::cout << player->getName() << ": " << player->getOverallRating() << std::endl;
 		if (player->getPosition() == Player::PositionPossible::center) {
 			centerVector.push_back(player);
 		}
@@ -117,8 +120,6 @@ void Team::autoGenLines()
 	std::sort(goalieVector.begin(), goalieVector.end(), [](Player* p1, Player* p2) {
 		return p1->getOverallRating() > p2->getOverallRating();
 		});
-
-	// put sorted vectors in lines
 	
 }
 
@@ -134,7 +135,7 @@ int Team::getCurrentLine()
 
 void Team::shiftChange()
 {
-	if (currentLine++ <= 3) {
+	if (currentLine++ <= 3) { // TODO fix this
 		currentLine++;
 	}
 	else { currentLine = 1; }
@@ -142,7 +143,7 @@ void Team::shiftChange()
 
 Player* Team::CurrentLineCenter()
 {
-	return centerVector[currentLine];
+	return centerVector[0]; // TODO fix this
 }
 
 Player* Team::CurrentLineGoalie()

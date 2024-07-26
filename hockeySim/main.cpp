@@ -3,11 +3,14 @@
 int main() {
 	Team team;
 	GameLogic gamelogic;
+	GenerateName genName;
+	genName.readNameFile();
 	bool gameRunning = true;
 	std::vector<Player*> freeAgents;
 	//while (gameRunning) {
 	// generate teams
-	team.generatePlayers();
+	team.generatePlayers(genName);
+	team.viewPlayers();
 		// core game play loop
 	// view teams
 	//team.viewPlayers();

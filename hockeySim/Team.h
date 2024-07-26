@@ -2,6 +2,7 @@
 #include <cstdint> 
 #include <string>
 #include "Player.h"
+#include "GenerateName.h"
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -11,6 +12,11 @@ class Team
 private:
 	uint8_t maxAmountPlayers;
 	uint8_t amountPlayers;
+	uint8_t averageAmountCenters;
+	uint8_t averageAmountLeft;
+	uint8_t averageAmountRight;
+	uint8_t averageAmountDefense;
+	uint8_t averageAmountGoalie;
 	int overallRating;
 	int offenseRating;
 	int defenseRating;
@@ -33,7 +39,7 @@ public:
 	Team();
 	~Team();
 	std::string getName();
-	void generatePlayers();
+	void generatePlayers(GenerateName genName);
 	void viewPlayers();
 	Player* cutPlayer();
 	bool compareByRating(Player* p1, Player* p2);
