@@ -18,7 +18,6 @@ Team::~Team()
 		delete player;
 	}
 	team.clear();
-
 }
 
 std::string Team::getName()
@@ -139,6 +138,11 @@ void Team::shiftChange()
 		currentLine++;
 	}
 	else { currentLine = 1; }
+}
+
+void Team::setName(std::string newName)
+{
+	name = newName;
 }
 
 Player* Team::CurrentLineCenter()

@@ -47,6 +47,7 @@ public:
 	void setCurrentLine(int newLine);
 	int getCurrentLine();
 	void shiftChange();
+	void setName(std::string newName);
 	Player* CurrentLineCenter();
 	Player* CurrentLineGoalie();
 };

@@ -5,6 +5,7 @@
 class main
 {
 private:
+	std::vector<Team> opposingTeams;
 	bool gameRunning;
 };
 

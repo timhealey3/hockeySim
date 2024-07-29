@@ -44,6 +44,7 @@ bool GameLogic::gamePlay(Team* UserTeam, Team* CpuTeam)
 bool GameLogic::faceOff(Team* UserTeam, Team* CpuTeam)
 {
 	bool result = UserTeam->CurrentLineCenter()->getFaceOffSkill() >= CpuTeam->CurrentLineCenter()->getFaceOffSkill();
+	std::cout << "GAMELOGIC::FACEOFF " << "Home Team Faceoff Skill: " << UserTeam->CurrentLineCenter()->getFaceOffSkill() << " Away Team Faceoff Skill: " << CpuTeam->CurrentLineCenter()->getFaceOffSkill() << "\n";
 	return result;
 }
 
@@ -62,14 +63,16 @@ bool GameLogic::shotOnNet(Team* ShootingTeam, Team* DefendingTeam)
 
 void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 {
+	std::cout << "\nFirst Period: " << UserTeam->getName() << " Vs " << CpuTeam->getName() << "\n";
 	period = 1;
 	UserTeam->autoGenLines();
+	CpuTeam->autoGenLines();
 	for (int i = 20; i > 0; i--) {
 		// change shifts every 2 minutes
 		if (i % 2 == 0) {
 			// start of game/period
 			if (i == 20) {
-				std::cout << "Starting First Period" << "\n";
+				std::cout << "GAMELOGIC::Starting First Period" << "\n";
 				icearea = IceArea::midIce;
 				UserTeam->setCurrentLine(1);
 				CpuTeam->setCurrentLine(1);
