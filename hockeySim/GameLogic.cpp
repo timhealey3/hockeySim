@@ -6,6 +6,7 @@ GameLogic::GameLogic()
 	cpuTeamScore = 0;
 	minute = 0;
 	period = 0;
+	faceOffRequired = false;
 }
 
 GameLogic::~GameLogic()
@@ -22,7 +23,7 @@ bool GameLogic::gamePlay(Team* UserTeam, Team* CpuTeam)
 		overtimeLogic(UserTeam, CpuTeam);
 	}
 	int result = endGameLogic(UserTeam, CpuTeam);
-	std::cout << "MSG::SCORE: Home " << static_cast<int>(userTeamScore) << " Away: " << static_cast<int>(cpuTeamScore) << std::endl;
+	std::cout << "MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
 	
 	// end of game result
 	switch (result) {
@@ -53,11 +54,10 @@ bool GameLogic::shotOnNet(Team* ShootingTeam, Team* DefendingTeam)
 	// compare center shooting rating to goalie rating
 	// the difference will be the change the puck goes in or not
 	// increase shot by one, save/goal aswell
-	std::cout << "shot on net" << "\n";
-	int shotRating = ShootingTeam->CurrentLineCenter()->getShootingSkill();
-	int defendingRating = DefendingTeam->CurrentLineGoalie()->getGoalieSkill();
-	std::cout << "END::shot on net" << "\n\n";
-	bool result = true;
+	int shotRating = std::rand() % ShootingTeam->CurrentLineCenter()->getShootingSkill();
+	int defendingRating = std::rand() % DefendingTeam->CurrentLineGoalie()->getGoalieSkill();
+	bool result = (shotRating > defendingRating) ? true : false;
+	std::cout << "GAMELOGIC::shot on net:: Result " << result << "\n";
 	return result;
 }
 
@@ -68,6 +68,9 @@ void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 	UserTeam->autoGenLines();
 	CpuTeam->autoGenLines();
 	for (int i = 20; i > 0; i--) {
+		if (faceOffRequired) {
+			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
+		}
 		// change shifts every 2 minutes
 		if (i % 2 == 0) {
 			// start of game/period
@@ -136,7 +139,11 @@ void GameLogic::moveArea(Team* UserTeam, Team* CpuTeam)
 			icearea = static_cast<IceArea>(static_cast<int>(icearea) + 1);
 		}
 		else { 
-			shotOnNet(UserTeam, CpuTeam);
+			bool shotResult = shotOnNet(UserTeam, CpuTeam);
+			if (shotResult) {
+				userTeamScore++;
+				faceOffRequired = true;
+			}
 		}
 	}
 	else  {
@@ -145,7 +152,12 @@ void GameLogic::moveArea(Team* UserTeam, Team* CpuTeam)
 			icearea = static_cast<IceArea>(static_cast<int>(icearea) - 1);
 		}
 		else { 
-			shotOnNet(CpuTeam, UserTeam); 
+			bool shotResult = shotOnNet(CpuTeam, UserTeam);
+			if (shotResult) {
+				cpuTeamScore++;
+				faceOffRequired = true;
+			}
+			
 		}
 	}
 }

@@ -7,9 +7,10 @@ public:
 private:
 	uint8_t period;
 	uint8_t minute;
-	uint8_t userTeamScore;
-	uint8_t cpuTeamScore;
+	int userTeamScore;
+	int cpuTeamScore;
 	bool puckControl;
+	bool faceOffRequired;
 	IceArea icearea;
 	Stat gameStat;
 public:
