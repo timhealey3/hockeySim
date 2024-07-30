@@ -44,7 +44,7 @@ bool GameLogic::gamePlay(Team* UserTeam, Team* CpuTeam)
 bool GameLogic::faceOff(Team* UserTeam, Team* CpuTeam)
 {
 	bool result = UserTeam->CurrentLineCenter()->getFaceOffSkill() >= CpuTeam->CurrentLineCenter()->getFaceOffSkill();
-	std::cout << "GAMELOGIC::FACEOFF " << "Home Team Faceoff Skill: " << UserTeam->CurrentLineCenter()->getFaceOffSkill() << " Away Team Faceoff Skill: " << CpuTeam->CurrentLineCenter()->getFaceOffSkill() << "\n";
+	std::cout << "GAMELOGIC::FACEOFF " << "Home Team Faceoff Skill: " << UserTeam->CurrentLineCenter()->getFaceOffSkill() << " Away Team Faceoff Skill: " << CpuTeam->CurrentLineCenter()->getFaceOffSkill() <<  " Result: " << result << "\n";
 	return result;
 }
 
@@ -77,7 +77,7 @@ void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 				UserTeam->setCurrentLine(1);
 				CpuTeam->setCurrentLine(1);
 				bool faceOffResult = faceOff(UserTeam, CpuTeam);
-				puckControl = faceOffResult ? UserTeam : CpuTeam;
+				puckControl = faceOffResult;
 			}
 			else {
 				UserTeam->shiftChange();
@@ -129,19 +129,24 @@ int GameLogic::overtimeLogic(Team* UserTeam, Team* CpuTeam)
 void GameLogic::moveArea(Team* UserTeam, Team* CpuTeam)
 {
 	// if puck in opposite end and have control then take a shot
+	std::cout << "GAMELOGIC::TEAM " << puckControl << " has possesion of the puck" << "\n";
 	if (puckControl) {
 		// move puck
 		if (icearea < IceArea::awayEnd) {
 			icearea = static_cast<IceArea>(static_cast<int>(icearea) + 1);
 		}
-		else { shotOnNet(UserTeam, CpuTeam); }
+		else { 
+			shotOnNet(UserTeam, CpuTeam);
+		}
 	}
 	else  {
 		// move puck
 		if (icearea > IceArea::homeEnd) {
 			icearea = static_cast<IceArea>(static_cast<int>(icearea) - 1);
 		}
-		else { shotOnNet(CpuTeam, UserTeam); }
+		else { 
+			shotOnNet(CpuTeam, UserTeam); 
+		}
 	}
 }
 
@@ -149,8 +154,8 @@ std::string GameLogic::getIceAreaString(IceArea area)
 {
 	switch (area) {
 	case IceArea::midIce:         return "Mid Ice";
-	case IceArea::homeEnd:  return "Offensive Zone";
-	case IceArea::awayEnd:  return "Defensive Zone";
+	case IceArea::homeEnd:  return "CPU Team Attacking::Puck in Home Team Zone";
+	case IceArea::awayEnd:  return "Home Team Attacking::Puck in Away Team Zone";
 	default:                      return "Unknown Area";
 	}
 }

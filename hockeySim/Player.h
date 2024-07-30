@@ -38,5 +38,6 @@ public:
 	int getShootingSkill();
 	int getGoalieSkill();
 	int getOverallRating() const;
+	void generateSkillsCreation();
 };
 

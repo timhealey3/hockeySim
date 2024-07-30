@@ -9,7 +9,7 @@ private:
 	uint8_t minute;
 	uint8_t userTeamScore;
 	uint8_t cpuTeamScore;
-	Team* puckControl;
+	bool puckControl;
 	IceArea icearea;
 	Stat gameStat;
 public:

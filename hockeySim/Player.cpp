@@ -9,7 +9,7 @@ Player::Player(std::string first, std::string last, PositionPossible positionNew
     contractCost = 1;
     contractLength = 1;
     genPotientalRating();
-    genCurrentRating();
+    generateSkillsCreation();
 }
 
 Player::~Player()
@@ -58,13 +58,13 @@ void Player::genPotientalRating()
     switch (potiental)
     {
     case Player::Potiental::high:
-        potientalRating = 100;
+        potientalRating = 50;
         break;
     case Player::Potiental::medium:
-        potientalRating = 85;
+        potientalRating = 40;
         break;
     case Player::Potiental::low:
-        potientalRating = 75;
+        potientalRating = 30;
         break;
     }
 }
@@ -142,4 +142,69 @@ int Player::getGoalieSkill()
 int Player::getOverallRating() const
 {
     return overallRating;
+}
+
+void Player::generateSkillsCreation()
+{
+    
+    int random_number = std::rand() % 51;
+    if (std::rand() % 100 < 70) {
+        random_number = 40 + (std::rand() % 11);
+    }
+    else {
+        random_number = std::rand() % 51;
+    }
+    int random_potiental = std::rand() % potientalRating;
+    int random_decrease = (std::rand() % 4) + 1;
+    switch (position)
+    {
+    case Player::PositionPossible::center:
+        faceOffRating = random_number + random_potiental;
+        shootingRating = random_number + random_potiental;
+        checkingRating = random_number + (random_potiental / random_decrease);
+        passingRating = random_number + (random_potiental / random_decrease);
+        goalieRating = 0;
+        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
+        break;
+    case Player::PositionPossible::left:
+        faceOffRating = random_number + random_potiental;
+        shootingRating = random_number + random_potiental;
+        checkingRating = random_number + (random_potiental / random_decrease);
+        passingRating = random_number + (random_potiental / random_decrease);
+        goalieRating = 0;
+        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
+        break;
+    case Player::PositionPossible::right:
+        faceOffRating = random_number + random_potiental;
+        shootingRating = random_number + random_potiental;
+        checkingRating = random_number + (random_potiental / random_decrease);
+        passingRating = random_number + (random_potiental / random_decrease);
+        goalieRating = 0;
+        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
+        break;
+    case Player::PositionPossible::defense:
+        faceOffRating = random_number + (random_potiental / random_decrease);
+        shootingRating = random_number + (random_potiental / random_decrease);
+        checkingRating = random_number + random_potiental;
+        passingRating = random_number + random_potiental;
+        goalieRating = 0;
+        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
+        break;
+    case Player::PositionPossible::goalie:
+        faceOffRating = 0;
+        shootingRating = 0;
+        checkingRating = 0;
+        passingRating = 0;
+        goalieRating = random_number + random_potiental;
+        overallRating = goalieRating;
+        break;
+    default:
+        faceOffRating = 0;
+        shootingRating = 0;
+        checkingRating = 0;
+        passingRating = 0;
+        goalieRating = 0;
+        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
+        break;
+    }
 }
