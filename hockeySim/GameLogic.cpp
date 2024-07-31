@@ -51,12 +51,35 @@ bool GameLogic::faceOff(Team* UserTeam, Team* CpuTeam)
 
 bool GameLogic::shotOnNet(Team* ShootingTeam, Team* DefendingTeam)
 {
-	// compare center shooting rating to goalie rating
-	// the difference will be the change the puck goes in or not
 	// increase shot by one, save/goal aswell
-	int shotRating = std::rand() % ShootingTeam->CurrentLineCenter()->getShootingSkill();
-	int defendingRating = std::rand() % DefendingTeam->CurrentLineGoalie()->getGoalieSkill();
-	bool result = (shotRating > defendingRating) ? true : false;
+	bool result;
+	float shotRating = (std::rand() % ShootingTeam->CurrentLineCenter()->getShootingSkill()) * 0.10;
+	float defendingRating = (std::rand() % DefendingTeam->CurrentLineGoalie()->getGoalieSkill()) * 0.10;
+	float randomShotChance = 10 + shotRating - defendingRating;
+	int randomNumber = (std::rand() % 100);
+
+	if (randomShotChance > randomNumber) {
+		result = true;
+	}
+	else {
+		result = false;
+		if (randomNumber > 80) {
+			// goalie freeze puck
+			std::cout << "GAMELOGIC::The Puck has been frozen by the goalie" << "\n";
+			faceOffRequired = true;
+		}
+		else if (randomNumber > 60) {
+			// defense blocks puck
+			std::cout << "GAMELOGIC::The Puck has been blocked by the defense";
+		}
+		else {
+			// goalie makes save
+			// rebound
+			std::cout << "GAMELOGIC::Rebound" << "\n";
+			puckControl = (randomNumber > 25) ? true : false;
+		}
+	}
+
 	std::cout << "GAMELOGIC::shot on net:: Result " << result << "\n";
 	return result;
 }
@@ -96,12 +119,60 @@ void GameLogic::secondPeriod(Team* UserTeam, Team* CpuTeam)
 {
 	std::cout << "Start Second Period" << "\n";
 	period = 2;
+	for (int i = 20; i > 0; i--) {
+		if (faceOffRequired) {
+			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
+		}
+		// change shifts every 2 minutes
+		if (i % 2 == 0) {
+			// start of game/period
+			if (i == 20) {
+				std::cout << "GAMELOGIC::Starting First Period" << "\n";
+				icearea = IceArea::midIce;
+				UserTeam->setCurrentLine(1);
+				CpuTeam->setCurrentLine(1);
+				bool faceOffResult = faceOff(UserTeam, CpuTeam);
+				puckControl = faceOffResult;
+			}
+			else {
+				UserTeam->shiftChange();
+				CpuTeam->shiftChange();
+			}
+		}
+		moveArea(UserTeam, CpuTeam);
+		std::cout << "AREA::Puck has moved to " << getIceAreaString(icearea) << "\n";
+	}
 }
 
 void GameLogic::thirdPeriod(Team* UserTeam, Team* CpuTeam)
 {
 	std::cout << "Start Third Period" << "\n";
 	period = 3;
+	std::cout << "\nFirst Period: " << UserTeam->getName() << " Vs " << CpuTeam->getName() << "\n";
+	period = 1;
+	for (int i = 20; i > 0; i--) {
+		if (faceOffRequired) {
+			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
+		}
+		// change shifts every 2 minutes
+		if (i % 2 == 0) {
+			// start of game/period
+			if (i == 20) {
+				std::cout << "GAMELOGIC::Starting First Period" << "\n";
+				icearea = IceArea::midIce;
+				UserTeam->setCurrentLine(1);
+				CpuTeam->setCurrentLine(1);
+				bool faceOffResult = faceOff(UserTeam, CpuTeam);
+				puckControl = faceOffResult;
+			}
+			else {
+				UserTeam->shiftChange();
+				CpuTeam->shiftChange();
+			}
+		}
+		moveArea(UserTeam, CpuTeam);
+		std::cout << "AREA::Puck has moved to " << getIceAreaString(icearea) << "\n";
+	}
 }
 
 int GameLogic::endGameLogic(Team* UserTeam, Team* CpuTeam)
@@ -151,13 +222,13 @@ void GameLogic::moveArea(Team* UserTeam, Team* CpuTeam)
 		if (icearea > IceArea::homeEnd) {
 			icearea = static_cast<IceArea>(static_cast<int>(icearea) - 1);
 		}
-		else { 
+		// if puck is already in attacking position of team with control then attempt a shot
+		else {
 			bool shotResult = shotOnNet(CpuTeam, UserTeam);
 			if (shotResult) {
 				cpuTeamScore++;
 				faceOffRequired = true;
 			}
-			
 		}
 	}
 }
