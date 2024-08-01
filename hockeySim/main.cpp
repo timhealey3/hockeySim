@@ -38,8 +38,11 @@ int main() {
 	for (const auto& sched : scheduleYourTeam) {
 		std::cout << "Schedule: " << sched->getName() << "\n";
 	}
-
-
+	
+	// training camp
+	// 4 preseason games
+	// training camp improvements
+	
 	//while (gameRunning) {
 	// generate teams
 	/*

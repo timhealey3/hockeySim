@@ -208,3 +208,28 @@ void Player::generateSkillsCreation()
         break;
     }
 }
+
+int Player::trainingCampImprovement()
+{
+    int random_potiental = (std::rand() % potientalRating) * 0.1;
+    if (age < 30) {
+        switch (position)
+        {
+        case Player::PositionPossible::center:
+            trainingCampImprovementCenter(random_potiental);
+            break;
+        }
+    }
+    else {
+        return 0;
+    }
+    return 0;
+}
+
+void Player::trainingCampImprovementCenter(int randomPotiental)
+{
+    faceOffRating += randomPotiental;
+    shootingRating += randomPotiental;
+    passingRating += randomPotiental;
+    overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
+}

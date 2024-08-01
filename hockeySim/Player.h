@@ -39,5 +39,7 @@ public:
 	int getGoalieSkill();
 	int getOverallRating() const;
 	void generateSkillsCreation();
+	int trainingCampImprovement();
+	void trainingCampImprovementCenter(int randomPotiental);
 };
 
