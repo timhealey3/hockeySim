@@ -209,14 +209,28 @@ void Player::generateSkillsCreation()
     }
 }
 
-int Player::trainingCampImprovement()
+int Player::trainingCampImprovement(Trainingcamp* trainingcamp)
 {
     int random_potiental = (std::rand() % potientalRating) * 0.1;
     if (age < 30) {
         switch (position)
         {
         case Player::PositionPossible::center:
-            trainingCampImprovementCenter(random_potiental);
+            trainingcamp->improveCenter(random_potiental);
+            break;
+        case Player::PositionPossible::left:
+            trainingcamp->improveLeft(random_potiental);
+            break;
+        case Player::PositionPossible::right:
+            trainingcamp->improveRight(random_potiental);
+            break;
+        case Player::PositionPossible::defense:
+            trainingcamp->improveDefense(random_potiental);
+            break;
+        case Player::PositionPossible::goalie:
+            trainingcamp->improveGoalie(random_potiental);
+            break;
+        default:
             break;
         }
     }
@@ -224,12 +238,4 @@ int Player::trainingCampImprovement()
         return 0;
     }
     return 0;
-}
-
-void Player::trainingCampImprovementCenter(int randomPotiental)
-{
-    faceOffRating += randomPotiental;
-    shootingRating += randomPotiental;
-    passingRating += randomPotiental;
-    overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
 }

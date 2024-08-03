@@ -154,3 +154,9 @@ Player* Team::CurrentLineGoalie()
 {
 	return goalieVector[0];
 }
+
+void Team::trainingCamp(Trainingcamp* trainingcamp) {
+    for (Player* player : team) {
+        player->trainingCampImprovement(trainingcamp);
+    }
+}

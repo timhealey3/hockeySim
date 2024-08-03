@@ -2,7 +2,7 @@
 #include "Team.h"
 #include "GameLogic.h"
 #include "GenerateName.h"
-
+#include "Trainingcamp.h"
 class main
 {
 private:

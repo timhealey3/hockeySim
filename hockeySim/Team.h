@@ -2,6 +2,7 @@
 #include <cstdint> 
 #include <string>
 #include "Player.h"
+#include "Trainingcamp.h"
 #include "GenerateName.h"
 #include <vector>
 #include <iostream>
@@ -50,5 +51,6 @@ public:
 	void setName(std::string newName);
 	Player* CurrentLineCenter();
 	Player* CurrentLineGoalie();
+    void trainingCamp(Trainingcamp* trainingcamp);
 };
 

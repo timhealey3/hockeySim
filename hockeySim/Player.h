@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Stat.h"
+#include "Trainingcamp.h"
 #include <random>
 #include <ctime>
 #include <cstdlib>
@@ -34,12 +35,18 @@ public:
 	void cutContract();
 	void genPotientalRating();
 	void genCurrentRating();
-	int getFaceOffSkill();
-	int getShootingSkill();
+    int setShootingRating(int newRating);
+    int setPassingRating(int newRating);
+    int setCheckingRating(int newRating);
+    int setGoalieRating(int newRating);
+    int setFaceOffRating(int newRating);
+    int setOverallRating(int newRating);
+    int setAge(int newAge);
+    int getFaceOffSkill();
+    int getShootingSkill();
 	int getGoalieSkill();
 	int getOverallRating() const;
 	void generateSkillsCreation();
-	int trainingCampImprovement();
-	void trainingCampImprovementCenter(int randomPotiental);
+	int trainingCampImprovement(Trainingcamp* trainingcamp);
 };
 

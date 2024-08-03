@@ -41,6 +41,15 @@ int main() {
 	
 	// training camp
 	// 4 preseason games
+    Trainingcamp *trainingcamp;
+    myTeam->trainingCamp(trainingcamp);
+    delete trainingcamp;
+
+    for (auto& team : opposingTeams) {
+        Trainingcamp *trainingcampOpossing;
+        myTeam->trainingCamp(trainingcampOpossing);
+        delete trainingcampOpossing;
+    }
 	// training camp improvements
 	
 	//while (gameRunning) {
