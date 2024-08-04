@@ -22,6 +22,9 @@ private:
 	int overallRating;
 	int potientalRating;
 	int age;
+    int happyScore;
+    int wearTearMultiplier;
+    int injuryChance;
 	int contractLength;
 	int contractCost;
 	std::string firstName;

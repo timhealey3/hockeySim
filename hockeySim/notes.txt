@@ -1,0 +1,16 @@
+Hockey Manager
+
+- Per Game Logic
+    - Before game speech
+    - first period
+        - shouts
+            - player shouts
+                - shoot more, pass more, check more, work harder
+            - ref shouts
+                - missed penalty
+    - mid game speech
+    - second period
+    - mid game speech
+    - third period
+    - end game speech -> players
+    - end game speech -> media

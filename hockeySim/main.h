@@ -3,6 +3,7 @@
 #include "GameLogic.h"
 #include "GenerateName.h"
 #include "Trainingcamp.h"
+#include "GameTime.h"
 class main
 {
 private:
