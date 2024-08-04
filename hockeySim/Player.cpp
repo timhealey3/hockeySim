@@ -69,60 +69,6 @@ void Player::genPotientalRating()
     }
 }
 
-void Player::genCurrentRating()
-{
-    switch (position)
-    {
-    case Player::PositionPossible::center:
-        faceOffRating = 100;
-        shootingRating = 100;
-        checkingRating = 50;
-        passingRating = 100;
-        goalieRating = 0;
-        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
-        break;
-    case Player::PositionPossible::left:
-        faceOffRating = 100;
-        shootingRating = 100;
-        checkingRating = 50;
-        passingRating = 100;
-        goalieRating = 0;
-        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
-        break;
-    case Player::PositionPossible::right:
-        faceOffRating = 100;
-        shootingRating = 100;
-        checkingRating = 50;
-        passingRating = 100;
-        goalieRating = 0;
-        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
-        break;
-    case Player::PositionPossible::defense:
-        faceOffRating = 10;
-        shootingRating = 100;
-        checkingRating = 100;
-        passingRating = 75;
-        goalieRating = 0;
-        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
-        break;
-    case Player::PositionPossible::goalie:
-        faceOffRating = 0;
-        shootingRating = 100;
-        checkingRating = 0;
-        passingRating = 50;
-        goalieRating = 100;
-        overallRating = goalieRating;
-        break;
-    default:
-        faceOffRating = 0;
-        shootingRating = 100;
-        checkingRating = 0;
-        passingRating = 0;
-        goalieRating = 0;
-        overallRating = (faceOffRating + shootingRating + passingRating + checkingRating) / 4;
-        break;
-    }
-}
 
 int Player::getFaceOffSkill()
 {
@@ -142,6 +88,14 @@ int Player::getGoalieSkill()
 int Player::getOverallRating() const
 {
     return overallRating;
+}
+
+int Player::getPassingRating() {
+    return passingRating;
+}
+
+int Player::getCheckingRating() {
+    return checkingRating;
 }
 
 void Player::generateSkillsCreation()

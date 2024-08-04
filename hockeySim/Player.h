@@ -34,7 +34,6 @@ public:
 	std::string getDisplayPosition();
 	void cutContract();
 	void genPotientalRating();
-	void genCurrentRating();
     int setShootingRating(int newRating);
     int setPassingRating(int newRating);
     int setCheckingRating(int newRating);
@@ -46,6 +45,8 @@ public:
     int getShootingSkill();
 	int getGoalieSkill();
 	int getOverallRating() const;
+    int getPassingRating();
+    int getCheckingRating();
 	void generateSkillsCreation();
 	int trainingCampImprovement(Trainingcamp* trainingcamp);
 };

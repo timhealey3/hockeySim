@@ -4,6 +4,7 @@ int main() {
 
 	GameLogic gamelogic;
 	GenerateName genName;
+    GameTime gameTime;
 	genName.readNameFile();
 	bool gameRunning = true;
 	std::vector<Team*> opposingTeams;
@@ -30,59 +31,64 @@ int main() {
 	opposingTeams.erase(opposingTeams.begin() + 1);
 	std::cout << "My Team " << myTeam->getName() << "\n";
 
-	// generate schedule
-	for (int i = 0; i < 82; i++) {
-		scheduleYourTeam.push_back(opposingTeams[i/3]);
-	}
+    while (gameRunning) {
+        // generate schedule
+        for (int i = 0; i < 82; i++) {
+            scheduleYourTeam.push_back(opposingTeams[i/3]);
+        }
 
-	for (const auto& sched : scheduleYourTeam) {
-		std::cout << "Schedule: " << sched->getName() << "\n";
-	}
-	
-	// training camp
-	// 4 preseason games
-    Trainingcamp *trainingcamp;
-    myTeam->trainingCamp(trainingcamp);
-    delete trainingcamp;
+        for (const auto& sched : scheduleYourTeam) {
+            std::cout << "Schedule: " << sched->getName() << "\n";
+        }
 
-    for (auto& team : opposingTeams) {
-        Trainingcamp *trainingcampOpossing;
-        myTeam->trainingCamp(trainingcampOpossing);
-        delete trainingcampOpossing;
+        for (int x = 0; x < 365; x++) {
+            // training camp
+            // 4 preseason games
+            Trainingcamp *trainingcamp;
+            myTeam->trainingCamp(trainingcamp);
+            delete trainingcamp;
+            // training camp improvements
+            for (auto &team: opposingTeams) {
+                Trainingcamp *trainingcampOpossing;
+                myTeam->trainingCamp(trainingcampOpossing);
+                delete trainingcampOpossing;
+            }
+            // generate teams
+            /*
+            team.setName("Detroit");
+            team.generatePlayers(genName);
+            team.viewPlayers();
+
+            Team enemy;
+            opposingTeams.push_back(enemy);
+            for (auto& oppoTeam : opposingTeams) {
+                std::cout << "\n";
+                oppoTeam.setName("Toronto");
+                oppoTeam.generatePlayers(genName);
+                oppoTeam.viewPlayers();
+            }
+                // core game play loop
+            // view teams
+            //team.viewPlayers();
+                // cut players
+            //Player* cutPlayer = team.cutPlayer();
+            //freeAgents.push_back(cutPlayer);
+                // sign free agents
+                    // draft players
+                // re sign players
+                // trade players
+                // talk to players
+            // play game
+            gamelogic.gamePlay(&team, &opposingTeams[0]);
+            //}
+            // 32 teams eventually
+            // 82 games
+            // 23 man roster */
+        }
     }
-	// training camp improvements
-	
-	//while (gameRunning) {
-	// generate teams
-	/*
-	team.setName("Detroit");
-	team.generatePlayers(genName);
-	team.viewPlayers();
-	
-	Team enemy;
-	opposingTeams.push_back(enemy);
-	for (auto& oppoTeam : opposingTeams) {
-		std::cout << "\n";
-		oppoTeam.setName("Toronto");
-		oppoTeam.generatePlayers(genName);
-		oppoTeam.viewPlayers();
-	}
-		// core game play loop
-	// view teams
-	//team.viewPlayers();
-		// cut players
-	//Player* cutPlayer = team.cutPlayer();
-	//freeAgents.push_back(cutPlayer);
-		// sign free agents
-			// draft players
-		// re sign players
-		// trade players
-		// talk to players
-	// play game
-	gamelogic.gamePlay(&team, &opposingTeams[0]);
-	//}
-	// 32 teams eventually
-	// 82 games
-	// 23 man roster */
+    delete myTeam;
+    for (Team* allTeams : opposingTeams) {
+        delete allTeams;
+    }
 	return 0;
 }
