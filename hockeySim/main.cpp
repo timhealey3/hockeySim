@@ -43,19 +43,19 @@ int main() {
             std::cout << "Schedule: " << sched->getName() << "\n";
         }
         // core game loop reset every year
-        for (int x = 0; x < 365; x++) {
+        for (int x = 0; x < 1 /*365*/; x++) {
 
             if (gameTime.getMonth() == 8 && gameTime.getDate() == 0)
             {
                 // start training camp for your team
                 std::cout << "Off season training and training camp results are in: " << "\n";
-                Trainingcamp *trainingcamp;
+                Trainingcamp* trainingcamp{};
                 myTeam->trainingCamp(trainingcamp);
                 delete trainingcamp;
 
                 // training camp improvements for other teams
                 for (auto &team: opposingTeams) {
-                    Trainingcamp *trainingcampOpossing;
+                    Trainingcamp* trainingcampOpossing{};
                     myTeam->trainingCamp(trainingcampOpossing);
                     delete trainingcampOpossing;
                 }
@@ -76,13 +76,14 @@ int main() {
                 // trade players
                 // talk to players
             // play game
-            gamelogic.gamePlay(myTeam, opposingTeams[0]);
+            // gamelogic.gamePlay(myTeam, opposingTeams[0]);
             //}
             // 32 teams eventually
             // 82 games
             // 23 man roster */
             gameTime.setDate(1);
         }
+        gameRunning = false;
     }
     delete myTeam;
     for (Team* allTeams : opposingTeams) {

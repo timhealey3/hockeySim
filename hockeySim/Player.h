@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 #include "Stat.h"
-#include "Trainingcamp.h"
 #include <random>
 #include <ctime>
 #include <cstdlib>
+
 class Player
 {
 public:
@@ -37,13 +37,15 @@ public:
 	std::string getDisplayPosition();
 	void cutContract();
 	void genPotientalRating();
-    int setShootingRating(int newRating);
-    int setPassingRating(int newRating);
-    int setCheckingRating(int newRating);
-    int setGoalieRating(int newRating);
-    int setFaceOffRating(int newRating);
-    int setOverallRating(int newRating);
-    int setAge(int newAge);
+    void setShootingRating(int newRating);
+    void setPassingRating(int newRating);
+    void setCheckingRating(int newRating);
+    void setGoalieRating(int newRating);
+    void setFaceOffRating(int newRating);
+    void setOverallRating(int newRating);
+    void setAge(int newAge);
+	int getAge();
+	int getPotientalRating();
     int getFaceOffSkill();
     int getShootingSkill();
 	int getGoalieSkill();
@@ -51,6 +53,5 @@ public:
     int getPassingRating();
     int getCheckingRating();
 	void generateSkillsCreation();
-	int trainingCampImprovement(Trainingcamp* trainingcamp);
 };
 

@@ -11,7 +11,7 @@ GenerateName::~GenerateName()
 
 void GenerateName::readNameFile()
 {
-    std::cout << "FILE::Reading name file started" << std::endl;
+    std::cout << "FILE::Reading name file started" << "\n";
     // get first names
     std::ifstream file("firstName.txt");
     std::string str;
@@ -28,7 +28,7 @@ void GenerateName::readNameFile()
     }
     fileLast.close();
 
-    std::cout << "FILE::Reading name file ended" << std::endl;
+    std::cout << "FILE::Reading name file ended" << "\n";
 }
 
 std::string GenerateName::generateName()

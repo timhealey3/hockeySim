@@ -157,6 +157,28 @@ Player* Team::CurrentLineGoalie()
 
 void Team::trainingCamp(Trainingcamp* trainingcamp) {
     for (Player* player : team) {
-        player->trainingCampImprovement(trainingcamp);
+		int random_potiental = (std::rand() % player->getPotientalRating()) * 0.1;
+		if (player->getAge() < 30) {
+			switch (player->getPosition())
+			{
+			case Player::PositionPossible::center:
+				trainingcamp->improveCenter(player, random_potiental);
+				break;
+			case Player::PositionPossible::left:
+				trainingcamp->improveLeft(player, random_potiental);
+				break;
+			case Player::PositionPossible::right:
+				trainingcamp->improveRight(player, random_potiental);
+				break;
+			case Player::PositionPossible::defense:
+				trainingcamp->improveDefense(player, random_potiental);
+				break;
+			case Player::PositionPossible::goalie:
+				trainingcamp->improveGoalie(player, random_potiental);
+				break;
+			default:
+				break;
+			}
+		}
     }
 }

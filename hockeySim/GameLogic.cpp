@@ -23,7 +23,7 @@ bool GameLogic::gamePlay(Team* UserTeam, Team* CpuTeam)
 		overtimeLogic(UserTeam, CpuTeam);
 	}
 	int result = endGameLogic(UserTeam, CpuTeam);
-	std::cout << "MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
+	std::cout << "MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << "\n";
 	
 	// end of game result
 	switch (result) {
@@ -70,7 +70,7 @@ bool GameLogic::shotOnNet(Team* ShootingTeam, Team* DefendingTeam)
 		}
 		else if (randomNumber > 60) {
 			// defense blocks puck
-			std::cout << "GAMELOGIC::The Puck has been blocked by the defense";
+			std::cout << "GAMELOGIC::The Puck has been blocked by the defense" << "\n";
 		}
 		else {
 			// goalie makes save
@@ -92,7 +92,7 @@ void GameLogic::firstPeriod(Team* UserTeam, Team* CpuTeam)
 	CpuTeam->autoGenLines();
 	for (int i = 20; i > 0; i--) {
 		if (faceOffRequired) {
-			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
+			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << "\n";
 		}
 		// change shifts every 2 minutes
 		if (i % 2 == 0) {
@@ -121,7 +121,7 @@ void GameLogic::secondPeriod(Team* UserTeam, Team* CpuTeam)
 	period = 2;
 	for (int i = 20; i > 0; i--) {
 		if (faceOffRequired) {
-			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
+			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << "\n";
 		}
 		// change shifts every 2 minutes
 		if (i % 2 == 0) {
@@ -152,7 +152,7 @@ void GameLogic::thirdPeriod(Team* UserTeam, Team* CpuTeam)
 	period = 1;
 	for (int i = 20; i > 0; i--) {
 		if (faceOffRequired) {
-			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << std::endl;
+			std::cout << "GAMELOGIC::faceoff required MSG::SCORE: Home " << userTeamScore << " Away: " << cpuTeamScore << "\n";
 		}
 		// change shifts every 2 minutes
 		if (i % 2 == 0) {
