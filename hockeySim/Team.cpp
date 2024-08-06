@@ -155,8 +155,9 @@ Player* Team::CurrentLineGoalie()
 	return goalieVector[0];
 }
 
-void Team::trainingCamp(Trainingcamp* trainingcamp) {
+void Team::trainingCamp(Trainingcamp* trainingcamp, bool verbose) {
     for (Player* player : team) {
+		int oldValue = player->getOverallRating();
 		int random_potiental = (std::rand() % player->getPotientalRating()) * 0.1;
 		if (player->getAge() < 30) {
 			switch (player->getPosition())
@@ -180,5 +181,8 @@ void Team::trainingCamp(Trainingcamp* trainingcamp) {
 				break;
 			}
 		}
-    }
+		if (verbose) {
+			std::cout << player->getName() << " Age: " << player->getAge() << " Rating: " << oldValue << " -> " << player->getOverallRating() << "\n";
+		}
+	}
 }

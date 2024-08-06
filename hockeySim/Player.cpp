@@ -8,6 +8,7 @@ Player::Player(std::string first, std::string last, PositionPossible positionNew
     potientalRating = 0;
     contractCost = 1;
     contractLength = 1;
+    age = 18;
     genPotientalRating();
     generateSkillsCreation();
 }

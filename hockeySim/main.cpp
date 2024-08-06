@@ -50,13 +50,13 @@ int main() {
                 // start training camp for your team
                 std::cout << "Off season training and training camp results are in: " << "\n";
                 Trainingcamp* trainingcamp{};
-                myTeam->trainingCamp(trainingcamp);
+                myTeam->trainingCamp(trainingcamp, true);
                 delete trainingcamp;
 
                 // training camp improvements for other teams
                 for (auto &team: opposingTeams) {
                     Trainingcamp* trainingcampOpossing{};
-                    myTeam->trainingCamp(trainingcampOpossing);
+                    team->trainingCamp(trainingcampOpossing, false);
                     delete trainingcampOpossing;
                 }
 

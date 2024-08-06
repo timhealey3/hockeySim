@@ -51,6 +51,6 @@ public:
 	void setName(std::string newName);
 	Player* CurrentLineCenter();
 	Player* CurrentLineGoalie();
-    void trainingCamp(Trainingcamp* trainingcamp);
+    void trainingCamp(Trainingcamp* trainingcamp, bool verbose);
 };
 
